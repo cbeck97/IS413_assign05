@@ -12,11 +12,13 @@ namespace Assignment_05.Models
         {
             BookDbContext context = application.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<BookDbContext>();
 
+            //If there are any pending migrations, migrate to the database
             if (context.Database.GetPendingMigrations().Any())
             {
                 context.Database.Migrate();
             }
 
+            //If there are no books stored in the database, seed the database with the following information
             if (!context.Books.Any())
             {
                 context.Books.AddRange(
@@ -143,6 +145,7 @@ namespace Assignment_05.Models
                     }
                 );
 
+                //save the changes to the database
                 context.SaveChanges();
             }
         }

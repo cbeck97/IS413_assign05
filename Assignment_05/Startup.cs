@@ -62,6 +62,7 @@ namespace Assignment_05
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            //This adds the books to the database if there are no books already there
             SeedData.EnsurePopulated(app);
         }
     }

@@ -23,6 +23,7 @@ namespace Assignment_05.Controllers
 
         public IActionResult Index()
         {
+            //Pass the repository of Books to the Index view for each book to be displayed.
             return View(_repository.Books);
         }
 
