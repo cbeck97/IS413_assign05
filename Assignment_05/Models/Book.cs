@@ -40,6 +40,9 @@ namespace Assignment_05.Models
         [Required]
         public double Price { get; set; }
 
+        [Required]
+        public int PageCount { get; set; }
+
         //END OF Fields in the Model -------------------------------------------------------------------
 
     }

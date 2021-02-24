@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Assignment_05.Models;
+using Assignment_05.Models.ViewModels;
 
 namespace Assignment_05.Controllers
 {
@@ -15,16 +16,33 @@ namespace Assignment_05.Controllers
 
         private IBookRepository _repository;
 
+        //Edit this variable to determine how many books will get shown on each page
+        public int PageSize = 5;
+
         public HomeController(ILogger<HomeController> logger, IBookRepository repository)
         {
             _logger = logger;
             _repository = repository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            //Pass the repository of Books to the Index view for each book to be displayed.
-            return View(_repository.Books);
+            //This is the object that will be returned when index is requested
+            return View(new BookListViewModel
+            {
+                //instantiating the BookListViewModel with Books and Paging info
+                Books = _repository.Books
+                    .OrderBy(p => p.BookID)
+                    .Skip((page - 1) * PageSize)
+                    .Take(PageSize),
+
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalNumItems = _repository.Books.Count()
+                }
+            });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
