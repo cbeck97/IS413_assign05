@@ -8,41 +8,20 @@
 <br />
 <br />
 <br />
-<!--Create a book card for each book that is in the Model-->
+<!--Create a book card for each book that is in the Model using the partial view: BookSummary.cshtml-->
 <div class="container">
     <div class="row row-cols-1">
         @foreach (var x in Model.Books)
         {
-            <div class="col-md-12 my-4">
-                <div class="card shadow text-center h-100 ">
-                    <div class="card-header h-100 bg-dark text-white">
-                        <h3 class="card-title">@x.Title</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Author: @x.AuthorFirstName @x.AuthorLastName</p>
-                        <p>Publisher: @x.Publisher</p>
-                        <p>ISBN: @x.ISBN</p>
-                        <p>Classification: @x.Classification</p>
-                        <p>Category: @x.Category</p>
-                        <p>Price: @x.Price</p>
-                        <p>Page Count: @x.PageCount</p>
-                    </div>
-                </div>
-            </div>
+            <partial name="BookSummary" model="x"/>
         }
     </div>
 </div>
+<div class="text-center">
+    <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn"
+         page-class-normal="btn-outline-secondary"
+         page-class-selected="btn-dark"
+         class="btn-group m-1" page-url-category="@Model.CurrentCategory"></div>
+</div>
 
-<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn"
-     page-class-normal="btn-outline-secondary"
-     page-class-selected="btn-dark"
-     class="btn-group pull-right m-1"></div>
 
-<!--
-New Bootstrap Commands used:
-
-Card-header, h-100, bg-dark, text-white,
-Card-Title, Card-Body, fixed-top, navbar-dark
-
-And a whole bunch of other little ones to make the site look nice
--->

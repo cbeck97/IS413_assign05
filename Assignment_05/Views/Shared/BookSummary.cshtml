@@ -1,0 +1,19 @@
+﻿@model Book
+
+@*This is the partial view. It is the code for each card that is displayed with the book information*@
+<div class="col-md-12 my-4">
+    <div class="card shadow text-center h-100 ">
+        <div class="card-header h-100 bg-dark text-white">
+            <h3 class="card-title">@Model.Title</h3>
+        </div>
+        <div class="card-body">
+            <p>Author: @Model.AuthorFirstName @Model.AuthorLastName</p>
+            <p>Publisher: @Model.Publisher</p>
+            <p>ISBN: @Model.ISBN</p>
+            <p>Classification: @Model.Classification</p>
+            <p>Category: @Model.Category</p>
+            <p>Price: @Model.Price</p>
+            <p>Page Count: @Model.PageCount</p>
+        </div>
+    </div>
+</div>

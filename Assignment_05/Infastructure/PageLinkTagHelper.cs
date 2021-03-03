@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Assignment_05.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -28,6 +29,9 @@ namespace Assignment05.Infastructure
 
         public string PageAction { get; set; }
 
+        [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
+        public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
+
         public bool PageClassesEnabled { get; set; } = false;
 
         public string PageClass { get; set; }
@@ -49,7 +53,9 @@ namespace Assignment05.Infastructure
             {
                 //this creates a tab for each page number and sets the href to the associated page
                 TagBuilder tag = new TagBuilder("a");
-                tag.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });
+
+                PageUrlValues["page"] = i;
+                tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
 
                 //This is for the styling options for the tag we are creating
                 if (PageClassesEnabled)
