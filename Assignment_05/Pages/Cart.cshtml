@@ -1,0 +1,62 @@
+﻿@page
+
+@model Assignment_05.Pages.CartModel
+
+@{
+}
+
+<h2>Your Cart</h2>
+
+<table class="table table-bordered table-striped">
+
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th class="text-center">Quantity</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.Cart.Lines)
+        {
+            <tr>
+                <td class="text-left">@line.Book.Title</td>
+                <td class="text-center">
+                    <form asp-page-handler="Subtract" method="post">
+                        <input type="hidden" name="BookID" value="@line.Book.BookID" />
+                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                        <button type="submit" class="btn btn-dark btn-sm mx-1 pull-left" style="float:left">-</button>
+                    </form>
+                    @line.Quantity
+                    <form asp-page-handler="Add" method="post">
+                        <input type="hidden" name="BookID" value="@line.Book.BookID" />
+                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                        <button type="submit" class="btn btn-dark btn-sm mx-1 pull-right" style="float:right">+</button>
+                    </form>
+                </td>
+                <td class="text-right">@((line.Book.Price).ToString("c2", System.Globalization.CultureInfo.GetCultureInfo("en-us")))</td>
+                <td class="text-right">@((line.Quantity * line.Book.Price).ToString("c2", System.Globalization.CultureInfo.GetCultureInfo("en-us")))</td>
+                <td class="text-center">
+                    <form asp-page-handler="Remove" method="post">
+                        <input type="hidden" name="BookID" value="@line.Book.BookID" />
+                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                        <button type="submit" class="btn btn-outline-dark btn-sm mx-1">Remove</button>
+                    </form>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">@Model.Cart.ComputeTotalSum().ToString("c", System.Globalization.CultureInfo.GetCultureInfo("en-us"))</td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="text-center">
+    <a class="btn btn-dark" href="@Model.ReturnUrl">Continue Shopping</a>
+</div>

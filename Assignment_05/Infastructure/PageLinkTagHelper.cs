@@ -54,7 +54,7 @@ namespace Assignment05.Infastructure
                 //this creates a tab for each page number and sets the href to the associated page
                 TagBuilder tag = new TagBuilder("a");
 
-                PageUrlValues["page"] = i;
+                PageUrlValues["pageNum"] = i;
                 tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
 
                 //This is for the styling options for the tag we are creating
